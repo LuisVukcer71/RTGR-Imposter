@@ -7,6 +7,7 @@
     documentation
   </p>
   <p>Luis war hier</p>
+  <p>Amar war hier</p>
 </template>
 
 <style scoped></style>
