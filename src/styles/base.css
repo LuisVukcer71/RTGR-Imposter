@@ -1,0 +1,33 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  background: var(--color-bg);
+  color: var(--color-text);
+  overscroll-behavior: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+button {
+  font-family: inherit;
+}
+
+#app {
+  min-height: 100dvh;
+  min-height: 100vh;
+}

@@ -1,0 +1,20 @@
+{
+  "categories": [
+    {
+      "name": "Essen",
+      "words": ["Pizza", "Sushi", "Döner", "Pommes", "Schokolade", "Currywurst"]
+    },
+    {
+      "name": "Orte",
+      "words": ["Strand", "Berg", "Flughafen", "Bibliothek", "Krankenhaus", "Zoo"]
+    },
+    {
+      "name": "Berufe",
+      "words": ["Feuerwehrmann", "Lehrerin", "Pilot", "Bäcker", "Ärztin", "Klempner"]
+    },
+    {
+      "name": "Tiere",
+      "words": ["Elefant", "Pinguin", "Löwe", "Delfin", "Eule", "Waschbär"]
+    }
+  ]
+}
