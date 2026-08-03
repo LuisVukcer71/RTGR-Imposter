@@ -1,6 +1,9 @@
 export interface Player {
   id: number
   name: string
+  avatarSrc?: string
+  characterSrc?: string
+  accentColor?: string
 }
 
 export interface GameSettings {

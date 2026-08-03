@@ -6,39 +6,55 @@ const router = createRouter({
   routes: [
     {
       path: '/',
-      name: 'setup',
+      name: 'home',
+      component: () => import('@/views/HomeView.vue'),
+      meta: { order: 0 },
+    },
+    {
+      path: '/impostor',
+      name: 'impostor-setup',
       component: () => import('@/views/SetupView.vue'),
+      meta: { order: 1 },
     },
     {
-      path: '/reveal',
-      name: 'reveal',
+      path: '/impostor/reveal',
+      name: 'impostor-reveal',
       component: () => import('@/views/RevealView.vue'),
+      meta: { order: 2 },
     },
     {
-      path: '/round',
-      name: 'round',
+      path: '/impostor/round',
+      name: 'impostor-round',
       component: () => import('@/views/RoundView.vue'),
+      meta: { order: 3 },
     },
     {
-      path: '/resolution',
-      name: 'resolution',
+      path: '/impostor/resolution',
+      name: 'impostor-resolution',
       component: () => import('@/views/ResolutionView.vue'),
+      meta: { order: 4 },
     },
   ],
 })
 
-const requiredPhase: Record<string, string> = {
-  reveal: 'reveal',
-  round: 'round',
-  resolution: 'resolution',
+/*
+ * Pro-Spiel-Guard: jede zukünftige Spiele-Route bekommt ihre eigene
+ * "erforderliche Phase" -> Fallback-Route Zuordnung, statt eines
+ * plattformweiten Guards. Heute nur Impostor, später z.B. { 'quiz-round':
+ * ['round', 'quiz-setup'] }.
+ */
+const requiredPhase: Record<string, { phase: string; fallback: string }> = {
+  'impostor-reveal': { phase: 'reveal', fallback: 'impostor-setup' },
+  'impostor-round': { phase: 'round', fallback: 'impostor-setup' },
+  'impostor-resolution': { phase: 'resolution', fallback: 'impostor-setup' },
 }
 
 router.beforeEach((to) => {
   const { state } = useGameState()
-  const phase = requiredPhase[to.name as string]
+  const guard = requiredPhase[to.name as string]
 
-  if (phase && state.phase !== phase) {
-    return { name: 'setup' }
+  if (guard && state.phase !== guard.phase) {
+    return { name: guard.fallback }
   }
 
   return true

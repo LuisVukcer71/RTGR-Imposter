@@ -1,8 +1,17 @@
-<script setup lang="ts"></script>
+<script setup lang="ts">
+withDefaults(
+  defineProps<{
+    wide?: boolean
+  }>(),
+  {
+    wide: false,
+  },
+)
+</script>
 
 <template>
   <div class="screen">
-    <div class="screen__content">
+    <div class="screen__content" :class="{ 'screen__content--wide': wide }">
       <slot />
     </div>
   </div>
@@ -25,5 +34,9 @@
   flex-direction: column;
   gap: var(--space-4);
   margin: auto 0;
+}
+
+.screen__content--wide {
+  max-width: 640px;
 }
 </style>

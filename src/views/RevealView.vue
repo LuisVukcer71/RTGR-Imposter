@@ -20,7 +20,7 @@ function confirmReady() {
 function continueToNext() {
   nextReveal()
   if (state.phase === 'round') {
-    router.push({ name: 'round' })
+    router.push({ name: 'impostor-round' })
   } else {
     stage.value = 'handoff'
   }
@@ -29,23 +29,51 @@ function continueToNext() {
 
 <template>
   <ScreenLayout v-if="currentPlayer && state.round">
-    <ProgressDots :total="state.players.length" :current="state.revealIndex" />
+    <div class="dots-wrap">
+      <ProgressDots :total="state.players.length" :current="state.revealIndex" />
+    </div>
 
-    <HandoffCard
-      v-if="stage === 'handoff'"
-      eyebrow="Gerät weitergeben an"
-      :player-name="currentPlayer.name"
-      hint="Alle anderen dürfen jetzt nicht auf den Bildschirm schauen."
-      button-label="Ich bin bereit"
-      @confirm="confirmReady"
-    />
+    <Transition name="stage-swap" mode="out-in">
+      <HandoffCard
+        v-if="stage === 'handoff'"
+        key="handoff"
+        eyebrow="Gerät weitergeben an"
+        :player-name="currentPlayer.name"
+        :character-src="currentPlayer.characterSrc"
+        :accent-color="currentPlayer.accentColor"
+        hint="Alle anderen dürfen jetzt nicht auf den Bildschirm schauen."
+        button-label="Ich bin bereit"
+        @confirm="confirmReady"
+      />
 
-    <RoleCard
-      v-else
-      :is-imposter="currentRole?.isImposter ?? false"
-      :category-name="state.round.categoryName"
-      :word="state.round.word"
-      @continue="continueToNext"
-    />
+      <RoleCard
+        v-else
+        key="card"
+        :is-imposter="currentRole?.isImposter ?? false"
+        :category-name="state.round.categoryName"
+        :word="state.round.word"
+        :player-name="currentPlayer.name"
+        :avatar-src="currentPlayer.avatarSrc"
+        :character-src="currentPlayer.characterSrc"
+        :accent-color="currentPlayer.accentColor"
+        @continue="continueToNext"
+      />
+    </Transition>
   </ScreenLayout>
 </template>
+
+<style scoped>
+.dots-wrap {
+  animation: fade-in var(--duration-base) ease both;
+}
+
+.stage-swap-enter-active,
+.stage-swap-leave-active {
+  transition: opacity var(--duration-base) ease;
+}
+
+.stage-swap-enter-from,
+.stage-swap-leave-to {
+  opacity: 0;
+}
+</style>

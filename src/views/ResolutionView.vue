@@ -3,6 +3,7 @@ import { useRouter } from 'vue-router'
 import ScreenLayout from '@/components/ui/ScreenLayout.vue'
 import AppCard from '@/components/ui/AppCard.vue'
 import AppButton from '@/components/ui/AppButton.vue'
+import AppCharacterPortrait from '@/components/ui/AppCharacterPortrait.vue'
 import { useGameState } from '@/composables/useGameState'
 
 const router = useRouter()
@@ -10,12 +11,12 @@ const { state, imposters, playAgain, resetGame } = useGameState()
 
 function startAnotherRound() {
   playAgain()
-  router.push({ name: 'reveal' })
+  router.push({ name: 'impostor-reveal' })
 }
 
 function backToSetup() {
   resetGame()
-  router.push({ name: 'setup' })
+  router.push({ name: 'impostor-setup' })
 }
 </script>
 
@@ -26,11 +27,27 @@ function backToSetup() {
       <h1 class="title">{{ imposters.length > 1 ? 'Die Impostor waren' : 'Der Impostor war' }}</h1>
     </header>
 
-    <AppCard class="imposters">
-      <p v-for="p in imposters" :key="p.id" class="imposter-name">{{ p.name }}</p>
+    <AppCard tone="danger" class="imposters">
+      <div class="imposters__list">
+        <div
+          v-for="(p, idx) in imposters"
+          :key="p.id"
+          class="imposter-entry"
+          :style="{ animationDelay: `${260 + idx * 140}ms` }"
+        >
+          <AppCharacterPortrait
+            :name="p.name"
+            :character-src="p.characterSrc"
+            :accent-color="p.accentColor"
+            size="xl"
+            role="imposter"
+          />
+          <p class="imposter-name">{{ p.name }}</p>
+        </div>
+      </div>
     </AppCard>
 
-    <AppCard class="word-card">
+    <AppCard tone="success" class="word-card">
       <p class="word-card__eyebrow">{{ state.round.categoryName }}</p>
       <h2 class="word-card__word">{{ state.round.word }}</h2>
     </AppCard>
@@ -45,11 +62,12 @@ function backToSetup() {
 <style scoped>
 .header {
   text-align: center;
+  animation: slide-up-fade var(--duration-base) var(--ease-standard) both;
 }
 
 .eyebrow {
   margin: 0;
-  color: var(--color-text-muted);
+  color: var(--color-red-light);
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 0.85rem;
@@ -62,21 +80,40 @@ function backToSetup() {
 
 .imposters {
   text-align: center;
+  --pulse-color: var(--color-red-glow);
+  animation:
+    slide-up-fade var(--duration-base) var(--ease-standard) 100ms both,
+    pulse-glow 1.2s ease-in-out 650ms 2;
+}
+
+.imposters__list {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-4);
+}
+
+.imposter-entry {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  animation: scale-in var(--duration-slow) var(--ease-spring) both;
 }
 
 .imposter-name {
   margin: 0;
-  font-size: 1.8rem;
+  font-size: 1.6rem;
   font-weight: 700;
-  color: var(--color-danger);
-}
-
-.imposter-name + .imposter-name {
-  margin-top: var(--space-2);
+  color: var(--color-red-light);
 }
 
 .word-card {
   text-align: center;
+  --pulse-color: var(--color-green-glow);
+  animation:
+    slide-up-fade var(--duration-base) var(--ease-standard) 280ms both,
+    pulse-glow 1.2s ease-in-out 900ms 2;
 }
 
 .word-card__eyebrow {
@@ -84,17 +121,19 @@ function backToSetup() {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 0.85rem;
-  color: var(--color-accent);
+  color: var(--color-green-light);
 }
 
 .word-card__word {
   margin: var(--space-1) 0 0;
   font-size: 2rem;
+  color: var(--color-text);
 }
 
 .actions {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
+  animation: slide-up-fade var(--duration-base) var(--ease-standard) 480ms both;
 }
 </style>

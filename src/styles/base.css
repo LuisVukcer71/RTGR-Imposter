@@ -27,7 +27,179 @@ button {
   font-family: inherit;
 }
 
+img {
+  max-width: 100%;
+  display: block;
+}
+
 #app {
   min-height: 100dvh;
   min-height: 100vh;
+}
+
+/*
+ * Liquid-Glass Utility-Klassen. Einzige zentrale Definition der "Glasscheibe":
+ * Blur+Saturate, transluzenter Fond, lichtbrechender Verlaufsrand (hell
+ * oben/links -> dunkler unten/rechts via maskiertem Gradient-Rand) und ein
+ * dezenter oberer Glanzlicht-Schimmer. Jede Komponente, die wie Glas wirken
+ * soll, setzt diese Klasse zusätzlich zu ihrer eigenen scoped Klasse.
+ */
+.glass-surface {
+  position: relative;
+  background: var(--glass-bg);
+  -webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+  box-shadow:
+    var(--glass-shadow-ambient),
+    var(--glass-shadow-contact);
+}
+
+.glass-surface::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1px;
+  background: linear-gradient(135deg, var(--glass-border-bright), transparent 45%, var(--glass-border));
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+}
+
+.glass-surface::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: var(--glass-highlight);
+  opacity: 0.6;
+  mix-blend-mode: overlay;
+  pointer-events: none;
+}
+
+/* Depth-Shift bei Interaktion: wie physisches Anheben/Absenken einer Glasscheibe */
+.glass-surface--interactive {
+  transition:
+    transform var(--duration-fast) var(--ease-standard),
+    box-shadow var(--duration-base) ease;
+}
+
+.glass-surface--interactive:active {
+  transform: scale(0.97) translateY(1px);
+  box-shadow: var(--glass-shadow-contact);
+}
+
+/*
+ * Geteilte Keyframes. Werden per Name in den scoped Styles einzelner
+ * Komponenten referenziert (z.B. `animation: slide-up-fade .4s both;`) -
+ * hier zentral definiert, damit es nur eine Quelle der Wahrheit gibt.
+ */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.94);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+@keyframes slide-up-fade {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes pop {
+  0% {
+    transform: scale(1);
+  }
+  45% {
+    transform: scale(1.14);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+@keyframes pulse-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 var(--pulse-color, var(--color-red-glow));
+  }
+  50% {
+    box-shadow: 0 0 0 10px transparent;
+  }
+}
+
+@keyframes ripple-expand {
+  from {
+    transform: translate(-50%, -50%) scale(0);
+    opacity: 0.45;
+  }
+  to {
+    transform: translate(-50%, -50%) scale(9);
+    opacity: 0;
+  }
+}
+
+/* Spring-Pop für Auswahl-Ringe (Avatare, Chips) - bewusst mit Überschwingen */
+@keyframes ring-pop-in {
+  0% {
+    opacity: 0;
+    transform: scale(0.55);
+  }
+  60% {
+    opacity: 1;
+    transform: scale(1.12);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Lade-Schimmer für Bild-Skeletons (z.B. AppCharacterPortrait) */
+@keyframes shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+
+/*
+ * Respektiert die Systemeinstellung "Bewegung reduzieren": alle Animationen
+ * und Transitions werden praktisch verkürzt (nicht entfernt), damit
+ * Endzustände weiterhin korrekt erreicht werden, ohne Funktionalität zu
+ * beeinträchtigen (z.B. Karten-Flip erscheint dann als Sofort-Wechsel).
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

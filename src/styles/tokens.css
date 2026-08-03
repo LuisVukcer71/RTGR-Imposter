@@ -1,37 +1,105 @@
 :root {
-  /* Farbpalette: dunkles Indigo/Blau als Basis, warmes Amber als Akzent
-     -> bewusst nicht rot/türkis wie bei bekannten Impostor-Klonen */
-  --color-bg: #14162b;
-  --color-bg-elevated: #1c1f3d;
-  --color-surface: #262a52;
-  --color-surface-hover: #2f346a;
-  --color-border: #3a3f74;
+  /* Neutrale Basis: echtes Near-Black (Apple-Dark-Mode-Tiefe, kein Blaustich mehr) */
+  --color-bg: #050507;
+  --color-bg-elevated: #0b0b10;
+  --color-surface: #111116;
+  --color-surface-hover: #17171f;
+  --color-border: #26262f;
 
-  --color-text: #f1f0fb;
-  --color-text-muted: #a5a7d1;
+  --color-text: #f5f5f7;
+  --color-text-muted: #98989f;
 
-  --color-accent: #f2b544;
-  --color-accent-strong: #ffcb6b;
-  --color-accent-contrast: #1a1400;
+  /*
+   * Funktionale 3-Farben-Skala. Jede Farbe hat eine klare, im gesamten Flow
+   * konsistente Rolle:
+   *  - Grün  -> normale Rolle / das gesuchte Wort / Bestätigung
+   *  - Blau  -> primäre Aktionen / Branding / Fortschritt / Timer / Auswahl
+   *  - Rot   -> Impostor-Rolle / Warnung / kritische Aktionen
+   * Wirken hier als farbiges Licht hinter/durch Glas, nicht als flache Fläche
+   * -> siehe --glass-* Tokens und die -alpha/-glow Varianten unten.
+   */
 
-  --color-danger: #ef6f6c;
-  --color-success: #63d2a5;
+  /* Grün */
+  --color-green: #2dd4a7;
+  --color-green-light: #6ee7c9;
+  --color-green-dark: #17997a;
+  --color-green-alpha: rgba(45, 212, 167, 0.16);
+  --color-green-glow: rgba(45, 212, 167, 0.45);
+  --color-green-contrast: #04211a;
 
+  /* Blau */
+  --color-blue: #4d8cff;
+  --color-blue-light: #86b1ff;
+  --color-blue-dark: #2f5fd6;
+  --color-blue-alpha: rgba(77, 140, 255, 0.16);
+  --color-blue-glow: rgba(77, 140, 255, 0.45);
+  --color-blue-contrast: #04102b;
+
+  /* Rot */
+  --color-red: #ff5c62;
+  --color-red-light: #ff9195;
+  --color-red-dark: #d13439;
+  --color-red-alpha: rgba(255, 92, 98, 0.16);
+  --color-red-glow: rgba(255, 92, 98, 0.45);
+  --color-red-contrast: #2b0607;
+
+  /*
+   * Avatar-Identitätsfarben: rein dekorativ für die 8 festen Profile
+   * (Fallback-Initialen-Kreis, falls das echte Rendering fehlt/nicht lädt).
+   * Bewusst getrennt von der semantischen Grün/Blau/Rot-Skala, damit ein
+   * persönlicher Avatar-Ton niemals mit "Impostor"/"Crew" verwechselt wird.
+   */
+  --color-avatar-1: #8b7bff;
+  --color-avatar-2: #ff9f5b;
+  --color-avatar-3: #4fd1c5;
+  --color-avatar-4: #ff7bac;
+  --color-avatar-5: #c9e34d;
+  --color-avatar-6: #5bb8ff;
+  --color-avatar-7: #ffb84d;
+  --color-avatar-8: #b98bff;
+
+  /*
+   * Liquid-Glass-Tokens: eine Quelle der Wahrheit für jede transluzente
+   * Fläche in der App (siehe .glass-surface Utility in base.css).
+   */
+  --glass-bg: rgba(255, 255, 255, 0.055);
+  --glass-bg-strong: rgba(255, 255, 255, 0.1);
+  --glass-border: rgba(255, 255, 255, 0.14);
+  --glass-border-bright: rgba(255, 255, 255, 0.55);
+  --glass-blur: 28px;
+  --glass-saturate: 180%;
+  --glass-highlight: linear-gradient(180deg, rgba(255, 255, 255, 0.14), rgba(255, 255, 255, 0) 45%);
+  --glass-shadow-ambient: 0 24px 64px rgba(0, 0, 0, 0.55);
+  --glass-shadow-contact: 0 2px 10px rgba(0, 0, 0, 0.4);
+
+  /* Apple-naher Font-Stack (SF Pro, System-Fallbacks) */
   --font-family:
-    'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', system-ui, 'Segoe UI', Roboto,
+    Helvetica, Arial, sans-serif;
 
   --radius-sm: 10px;
   --radius-md: 18px;
   --radius-lg: 28px;
+  --radius-full: 999px;
 
+  /* 8pt-Spacing-Skala */
   --space-1: 4px;
   --space-2: 8px;
   --space-3: 16px;
   --space-4: 24px;
   --space-5: 32px;
   --space-6: 48px;
+  --space-7: 64px;
 
-  --shadow-card: 0 12px 32px rgba(6, 7, 20, 0.45);
+  --shadow-card: 0 12px 32px rgba(0, 0, 0, 0.5);
+
+  /* Motion-Tokens: konsistentes Timing/Easing für alle Animationen */
+  --ease-standard: cubic-bezier(0.22, 1, 0.36, 1);
+  --ease-emphasized: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --duration-fast: 160ms;
+  --duration-base: 320ms;
+  --duration-slow: 600ms;
 
   color-scheme: dark;
 }

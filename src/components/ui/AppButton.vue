@@ -1,5 +1,7 @@
 <script setup lang="ts">
-withDefaults(
+import { ref } from 'vue'
+
+const props = withDefaults(
   defineProps<{
     variant?: 'primary' | 'secondary' | 'ghost'
     disabled?: boolean
@@ -11,16 +13,64 @@ withDefaults(
     type: 'button',
   },
 )
+
+interface Ripple {
+  id: number
+  x: number
+  y: number
+  size: number
+}
+
+const ripples = ref<Ripple[]>([])
+let rippleId = 0
+
+function spawnRipple(event: PointerEvent) {
+  if (props.disabled) return
+
+  const target = event.currentTarget as HTMLElement
+  const rect = target.getBoundingClientRect()
+  const size = Math.max(rect.width, rect.height)
+  const id = rippleId++
+
+  ripples.value.push({
+    id,
+    x: event.clientX - rect.left,
+    y: event.clientY - rect.top,
+    size,
+  })
+
+  window.setTimeout(() => {
+    ripples.value = ripples.value.filter((r) => r.id !== id)
+  }, 500)
+}
 </script>
 
 <template>
-  <button :type="type" class="app-button" :class="`app-button--${variant}`" :disabled="disabled">
-    <slot />
+  <button
+    :type="type"
+    class="app-button glass-surface glass-surface--interactive"
+    :class="`app-button--${variant}`"
+    :disabled="disabled"
+    @pointerdown="spawnRipple"
+  >
+    <span
+      v-for="ripple in ripples"
+      :key="ripple.id"
+      class="app-button__ripple"
+      :style="{
+        left: `${ripple.x}px`,
+        top: `${ripple.y}px`,
+        width: `${ripple.size}px`,
+        height: `${ripple.size}px`,
+      }"
+    />
+    <span class="app-button__content"><slot /></span>
   </button>
 </template>
 
 <style scoped>
 .app-button {
+  overflow: hidden;
   appearance: none;
   border: none;
   cursor: pointer;
@@ -29,47 +79,66 @@ withDefaults(
   font-size: 1.05rem;
   font-weight: 600;
   letter-spacing: 0.01em;
-  transition:
-    transform 0.15s ease,
-    background-color 0.15s ease,
-    opacity 0.15s ease;
+  color: var(--color-text);
   width: 100%;
 }
 
-.app-button:active:not(:disabled) {
-  transform: scale(0.97);
+.app-button__content {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+}
+
+.app-button__ripple {
+  position: absolute;
+  border-radius: 50%;
+  background: var(--app-button-ripple-color, rgba(255, 255, 255, 0.5));
+  animation: ripple-expand 0.5s ease-out forwards;
+  pointer-events: none;
 }
 
 .app-button:disabled {
-  opacity: 0.45;
+  opacity: 0.4;
   cursor: not-allowed;
 }
 
-.app-button--primary {
-  background: var(--color-accent);
-  color: var(--color-accent-contrast);
+.app-button.app-button--primary {
+  --app-button-ripple-color: rgba(255, 255, 255, 0.55);
+  background:
+    linear-gradient(135deg, var(--color-blue-alpha), transparent 65%),
+    var(--glass-bg-strong);
+  box-shadow:
+    var(--glass-shadow-ambient),
+    var(--glass-shadow-contact),
+    0 0 24px 2px var(--color-blue-glow);
 }
 
-.app-button--primary:hover:not(:disabled) {
-  background: var(--color-accent-strong);
+.app-button.app-button--primary:hover:not(:disabled) {
+  background:
+    linear-gradient(135deg, var(--color-blue-glow), transparent 70%),
+    var(--glass-bg-strong);
 }
 
-.app-button--secondary {
-  background: var(--color-surface);
+.app-button.app-button--secondary {
+  --app-button-ripple-color: rgba(255, 255, 255, 0.3);
   color: var(--color-text);
-  border: 1px solid var(--color-border);
 }
 
-.app-button--secondary:hover:not(:disabled) {
-  background: var(--color-surface-hover);
-}
-
-.app-button--ghost {
+.app-button.app-button--ghost {
+  --app-button-ripple-color: rgba(255, 255, 255, 0.2);
   background: transparent;
+  box-shadow: none;
   color: var(--color-text-muted);
 }
 
-.app-button--ghost:hover:not(:disabled) {
+.app-button.app-button--ghost::before,
+.app-button.app-button--ghost::after {
+  display: none;
+}
+
+.app-button.app-button--ghost:hover:not(:disabled) {
   color: var(--color-text);
 }
 </style>

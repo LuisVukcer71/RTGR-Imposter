@@ -1,7 +1,12 @@
 <script setup lang="ts">
+import AppCharacterPortrait from '@/components/ui/AppCharacterPortrait.vue'
+import AppButton from '@/components/ui/AppButton.vue'
+
 defineProps<{
   eyebrow: string
   playerName: string
+  characterSrc?: string
+  accentColor?: string
   hint: string
   buttonLabel: string
 }>()
@@ -12,11 +17,17 @@ const emit = defineEmits<{ confirm: [] }>()
 <template>
   <div class="handoff">
     <p class="handoff__eyebrow">{{ eyebrow }}</p>
+
+    <div class="handoff__portrait">
+      <AppCharacterPortrait :name="playerName" :character-src="characterSrc" :accent-color="accentColor" size="xl" />
+    </div>
+
     <h2 class="handoff__name">{{ playerName }}</h2>
     <p class="handoff__hint">{{ hint }}</p>
-    <button class="handoff__button" type="button" @click="emit('confirm')">
-      {{ buttonLabel }}
-    </button>
+
+    <div class="handoff__cta">
+      <AppButton @click="emit('confirm')">{{ buttonLabel }}</AppButton>
+    </div>
   </div>
 </template>
 
@@ -36,33 +47,31 @@ const emit = defineEmits<{ confirm: [] }>()
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 0.85rem;
+  animation: slide-up-fade var(--duration-base) var(--ease-standard) both;
+}
+
+.handoff__portrait {
+  margin: var(--space-2) 0;
+  animation: scale-in var(--duration-slow) var(--ease-spring) 60ms both;
 }
 
 .handoff__name {
   margin: 0;
-  font-size: 2.4rem;
+  font-size: 2rem;
   color: var(--color-text);
+  animation: slide-up-fade var(--duration-base) var(--ease-standard) 120ms both;
 }
 
 .handoff__hint {
   margin: 0;
   color: var(--color-text-muted);
   max-width: 30ch;
+  animation: slide-up-fade var(--duration-base) var(--ease-standard) 180ms both;
 }
 
-.handoff__button {
+.handoff__cta {
+  width: 100%;
   margin-top: var(--space-3);
-  border: none;
-  border-radius: var(--radius-md);
-  background: var(--color-accent);
-  color: var(--color-accent-contrast);
-  padding: var(--space-3) var(--space-6);
-  font-size: 1.1rem;
-  font-weight: 700;
-  cursor: pointer;
-}
-
-.handoff__button:active {
-  transform: scale(0.97);
+  animation: scale-in var(--duration-base) var(--ease-standard) 240ms both;
 }
 </style>

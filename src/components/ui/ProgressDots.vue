@@ -26,19 +26,26 @@ defineProps<{
 .dot {
   width: 8px;
   height: 8px;
-  border-radius: 50%;
-  background: var(--color-border);
-  transition: all 0.2s ease;
+  border-radius: var(--radius-full);
+  background: linear-gradient(180deg, var(--glass-bg-strong), var(--color-border));
+  transition:
+    width var(--duration-base) var(--ease-standard),
+    background var(--duration-base) ease,
+    box-shadow var(--duration-base) ease;
 }
 
 .dot--done {
-  background: var(--color-accent);
+  background: linear-gradient(180deg, var(--color-blue-light), var(--color-blue-dark));
   opacity: 0.6;
 }
 
 .dot--active {
-  background: var(--color-accent);
-  width: 22px;
-  border-radius: 5px;
+  background: linear-gradient(180deg, var(--color-blue-light), var(--color-blue));
+  width: 24px;
+  border-radius: var(--radius-full);
+  box-shadow:
+    inset 0 1px 1px rgba(255, 255, 255, 0.4),
+    0 0 12px 1px var(--color-blue-glow);
+  animation: pop 0.35s var(--ease-standard);
 }
 </style>
