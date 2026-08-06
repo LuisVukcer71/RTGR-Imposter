@@ -234,9 +234,18 @@ npm run build
 
 ## Deployment auf Vercel
 
+> **Aktueller Stand:** `amar-v1` ist gepusht und gebaut, das Preview-Deployment
+> ist grün. Es ist noch durch Deployment Protection abgeschirmt und läuft ohne
+> Datenbank. Die vier Schritte zum Freischalten stehen in
+> [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
+
 Konfiguration: [`vercel.json`](vercel.json). Framework `vite`, Ausgabe `dist`,
-SPA-Rewrite für Deep Links wie `/room/K7M4PX`, Serverless Function unter
-`api/[...path].ts`.
+Serverless Function unter `api/[...path].ts`. Der Rewrite
+`/((?!api/).*) → /index.html` ist der SPA-Fallback: Deep Links wie
+`/room/K7M4PX` bekommen die App-Shell, `/api` bleibt bei den Functions.
+
+Das Vercel-Schema erlaubt in `rewrites` keine zusätzlichen Schlüssel – ein
+`comment`-Feld lässt den Build ohne verwertbare Meldung scheitern.
 
 ### Preview-Deployment von `amar-v1`
 
@@ -333,11 +342,14 @@ Datenbank, der Raumcode allein genügt nie als Authentifizierung.
 - **Impressum und Datenschutz sind leere Platzhalter.** Es wurden bewusst keine
   Betreiber- oder Rechtsangaben erfunden. Vor einer Veröffentlichung müssen
   `src/views/legal/` und die Texte in `src/i18n/de.ts` befüllt werden.
-- **Kein Deployment durchgeführt.** Es lagen keine Vercel- oder
-  Datenbank-Zugangsdaten vor. Die Migrationen wurden gegen das Schema
-  geschrieben, aber noch nicht gegen eine echte PostgreSQL-Instanz ausgeführt.
-  Verbleibender Schritt: Variablen in Vercel setzen, `npm run db:migrate` und
-  `npm run db:seed` einmalig laufen lassen.
+- **Das Deployment läuft, ist aber noch nicht öffentlich.** Deployment
+  Protection ist aktiv, und ohne `DATABASE_URL` nutzt die Preview den
+  flüchtigen Speicher – Impostor funktioniert damit vollständig, „Wer bin ich?“
+  nicht verlässlich, weil Serverless-Instanzen horizontal skalieren. Siehe
+  [`docs/DEPLOYMENT.md`](docs/DEPLOYMENT.md).
+- **Die Migrationen liefen noch gegen keine echte PostgreSQL-Instanz**, weil
+  lokal keine verfügbar war. Sie sind gegen das Schema geschrieben und über den
+  In-Memory-Adapter getestet.
 - **Der In-Memory-Speicher ist kein Ersatz für eine Datenbank.** Er existiert für
   lokale Entwicklung und Tests und wird in Produktion abgelehnt.
 - **QR-Scanner nur mit `BarcodeDetector`.** Chrome und Edge auf Android können
