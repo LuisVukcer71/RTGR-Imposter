@@ -37,3 +37,14 @@ __screenshots__/
 
 # Vite
 *.timestamp-*-*.mjs
+
+# Umgebungsvariablen – niemals committen. Die Vorlage ist .env.example.
+.env
+.env.*
+!.env.example
+
+# Vercel
+.vercel
+
+# Vom Service Worker erzeugt
+dev-dist

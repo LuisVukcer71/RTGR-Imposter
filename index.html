@@ -1,10 +1,25 @@
 <!DOCTYPE html>
-<html lang="">
+<html lang="de">
   <head>
-    <meta charset="UTF-8">
-    <link rel="icon" href="/favicon.ico">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Vite App</title>
+    <meta charset="UTF-8" />
+    <!-- viewport-fit=cover ist Voraussetzung dafür, dass env(safe-area-inset-*) greift. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#0a0e15" />
+    <meta name="color-scheme" content="dark" />
+    <meta name="description" content="Partyspiele für unterwegs: Impostor und Wer bin ich?" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="komm 10te" />
+    <link rel="icon" href="/favicon.ico" sizes="any" />
+    <link rel="apple-touch-icon" href="/icons/apple-touch-icon.png" />
+    <title>komm 10te</title>
+    <style>
+      /* Verhindert ein weißes Aufblitzen, bevor das CSS-Bundle geladen ist. */
+      html {
+        background: #05080d;
+      }
+    </style>
   </head>
   <body>
     <div id="app"></div>
