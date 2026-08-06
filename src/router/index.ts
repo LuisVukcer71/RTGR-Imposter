@@ -34,6 +34,11 @@ const router = createRouter({
       component: () => import('@/views/ResolutionView.vue'),
       meta: { order: 4 },
     },
+    {
+      path: '/impostor/words',
+      name: 'impostor-words',
+      component: () => import('@/views/WordsManageView.vue'),
+    },
   ],
 })
 

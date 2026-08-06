@@ -7,6 +7,7 @@ const props = defineProps<{
   isImposter: boolean
   categoryName: string
   word: string
+  hint: string
   playerName: string
   avatarSrc?: string
   characterSrc?: string
@@ -58,7 +59,11 @@ function flip() {
           <template v-if="props.isImposter">
             <p class="role-flip__eyebrow role-flip__eyebrow--danger">Achtung</p>
             <h2 class="role-flip__imposter-title">Du bist der Impostor</h2>
-            <p class="role-flip__hint">Du kennst das Wort nicht. Hör gut zu und tu so, als wüsstest du es.</p>
+            <div class="role-flip__hint-box">
+              <p class="role-flip__hint-label">Hinweis</p>
+              <p class="role-flip__hint-text">{{ hint }}</p>
+            </div>
+            <p class="role-flip__hint">Nutze den Hinweis, um mitzureden - ohne das Wort zu verraten.</p>
           </template>
           <template v-else>
             <p class="role-flip__eyebrow role-flip__eyebrow--success">{{ categoryName }}</p>
@@ -93,7 +98,7 @@ function flip() {
 
 .role-flip {
   width: 100%;
-  min-height: 440px;
+  min-height: 480px;
   perspective: 1400px;
   cursor: pointer;
 }
@@ -112,7 +117,7 @@ function flip() {
   position: relative;
   width: 100%;
   height: 100%;
-  min-height: 440px;
+  min-height: 480px;
   transform-style: preserve-3d;
   transition: transform var(--duration-slow) var(--ease-emphasized);
 }
@@ -134,6 +139,7 @@ function flip() {
   text-align: center;
   gap: var(--space-2);
   padding: var(--space-5);
+  overflow-y: auto;
 }
 
 .role-flip__face--back {
@@ -197,6 +203,29 @@ function flip() {
   margin: 0;
   font-size: 1.8rem;
   color: var(--color-red-light);
+}
+
+.role-flip__hint-box {
+  border: 1px dashed var(--color-red-alpha);
+  border-radius: var(--radius-md);
+  padding: var(--space-3);
+  background: var(--glass-bg);
+  max-width: 30ch;
+}
+
+.role-flip__hint-label {
+  margin: 0 0 var(--space-1);
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 0.75rem;
+  color: var(--color-red-light);
+}
+
+.role-flip__hint-text {
+  margin: 0;
+  font-style: italic;
+  color: var(--color-text);
+  font-size: 1rem;
 }
 
 .role-flip__hint {

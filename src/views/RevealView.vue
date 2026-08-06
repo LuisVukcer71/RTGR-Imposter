@@ -52,6 +52,7 @@ function continueToNext() {
         :is-imposter="currentRole?.isImposter ?? false"
         :category-name="state.round.categoryName"
         :word="state.round.word"
+        :hint="state.round.hint"
         :player-name="currentPlayer.name"
         :avatar-src="currentPlayer.avatarSrc"
         :character-src="currentPlayer.characterSrc"

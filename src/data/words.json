@@ -2,19 +2,47 @@
   "categories": [
     {
       "name": "Essen",
-      "words": ["Pizza", "Sushi", "Döner", "Pommes", "Schokolade", "Currywurst"]
+      "words": [
+        { "word": "Pizza", "hint": "Wird oft im Ofen gebacken und in Stücke geschnitten" },
+        { "word": "Sushi", "hint": "Kommt oft roh und wird in kleinen Häppchen mit Stäbchen gegessen" },
+        { "word": "Döner", "hint": "Fleisch wird von einem senkrechten Spieß abgeschnitten" },
+        { "word": "Pommes", "hint": "Wird meist heiß serviert und oft in Ketchup getunkt" },
+        { "word": "Schokolade", "hint": "Schmilzt schnell in der Hand und macht meist gute Laune" },
+        { "word": "Currywurst", "hint": "Kommt mit einer würzig-süßen Soße und ist ein deutscher Imbiss-Klassiker" }
+      ]
     },
     {
       "name": "Orte",
-      "words": ["Strand", "Berg", "Flughafen", "Bibliothek", "Krankenhaus", "Zoo"]
+      "words": [
+        { "word": "Strand", "hint": "Hier hört man oft Wellen und hat Sand zwischen den Zehen" },
+        { "word": "Berg", "hint": "Man braucht oft festes Schuhwerk, um ganz nach oben zu kommen" },
+        { "word": "Flughafen", "hint": "Hier warten Menschen mit Koffern auf ihren Abflug" },
+        { "word": "Bibliothek", "hint": "Hier sollte man möglichst leise sein" },
+        { "word": "Krankenhaus", "hint": "Hier tragen viele Menschen weiße Kittel und man wird wieder gesund" },
+        { "word": "Zoo", "hint": "Hier kann man viele Tiere hinter Zäunen und Glas beobachten" }
+      ]
     },
     {
       "name": "Berufe",
-      "words": ["Feuerwehrmann", "Lehrerin", "Pilot", "Bäcker", "Ärztin", "Klempner"]
+      "words": [
+        { "word": "Feuerwehrmann", "hint": "Trägt oft einen Helm und löscht, was gefährlich brennt" },
+        { "word": "Lehrerin", "hint": "Steht regelmäßig vor einer Klasse und gibt Hausaufgaben auf" },
+        { "word": "Pilot", "hint": "Sitzt ganz vorne und sorgt dafür, dass alle sicher ankommen" },
+        { "word": "Bäcker", "hint": "Steht meist schon sehr früh am Morgen auf, damit frische Ware bereitsteht" },
+        { "word": "Ärztin", "hint": "Untersucht Patienten und stellt Diagnosen" },
+        { "word": "Klempner", "hint": "Kommt vorbei, wenn irgendwo Wasser tropft, wo es nicht soll" }
+      ]
     },
     {
       "name": "Tiere",
-      "words": ["Elefant", "Pinguin", "Löwe", "Delfin", "Eule", "Waschbär"]
+      "words": [
+        { "word": "Elefant", "hint": "Hat große Ohren und ein besonders gutes Gedächtnis" },
+        { "word": "Pinguin", "hint": "Kann nicht fliegen, dafür aber hervorragend schwimmen" },
+        { "word": "Löwe", "hint": "Lebt in Gruppen und wird oft König genannt" },
+        { "word": "Delfin", "hint": "Lebt im Wasser, ist aber kein Fisch, sondern atmet Luft" },
+        { "word": "Eule", "hint": "Ist vor allem nachts aktiv und kann den Kopf sehr weit drehen" },
+        { "word": "Waschbär", "hint": "Trägt eine auffällige Maske im Gesicht und ist geschickt mit den Pfoten" }
+      ]
     }
   ]
 }

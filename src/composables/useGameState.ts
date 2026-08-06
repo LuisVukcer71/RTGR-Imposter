@@ -37,7 +37,7 @@ function configureGame(players: Player[], settings: GameSettings) {
 }
 
 function startGame() {
-  const { categoryName, word } = pickCategoryAndWord(state.settings.categoryNames)
+  const { categoryName, word, hint } = pickCategoryAndWord(state.settings.categoryNames)
 
   const imposterCount = Math.min(state.settings.imposterCount, Math.max(state.players.length - 1, 0))
   const shuffledPlayerIds = shuffled(state.players.map((p) => p.id))
@@ -46,6 +46,7 @@ function startGame() {
   state.round = {
     categoryName,
     word,
+    hint,
     roles: state.players.map((p) => ({ playerId: p.id, isImposter: imposterIds.has(p.id) })),
   }
   state.revealIndex = 0

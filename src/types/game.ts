@@ -19,8 +19,20 @@ export interface RoleAssignment {
   isImposter: boolean
 }
 
+/** Ein Wort samt Hinweis, der ausschließlich dem Impostor angezeigt wird. */
+export interface WordEntry {
+  word: string
+  hint: string
+}
+
+export interface WordCategory {
+  name: string
+  words: WordEntry[]
+}
+
 export interface ActiveRound {
   categoryName: string
   word: string
+  hint: string
   roles: RoleAssignment[]
 }

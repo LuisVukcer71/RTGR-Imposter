@@ -75,6 +75,10 @@ function goHome() {
   router.push({ name: 'home' })
 }
 
+function goToWordsManager() {
+  router.push({ name: 'impostor-words' })
+}
+
 function startNewGame() {
   const players: Player[] = PLAYER_PROFILES.filter((profile) => selectedIds.value.includes(profile.id)).map(
     (profile, i) => ({
@@ -176,6 +180,10 @@ function startNewGame() {
           {{ name }}
         </button>
       </TransitionGroup>
+
+      <button type="button" class="manage-link glass-surface glass-surface--interactive" @click="goToWordsManager">
+        Wörter verwalten
+      </button>
     </AppCard>
 
     <div class="cta">
@@ -412,5 +420,18 @@ function startNewGame() {
     0 0 0 1px var(--color-blue-alpha),
     0 0 20px 2px var(--color-blue-glow);
   animation: pop 0.3s var(--ease-standard);
+}
+
+.manage-link {
+  align-self: flex-start;
+  border: none;
+  border-radius: var(--radius-full);
+  padding: var(--space-2) var(--space-3);
+  min-height: 44px;
+  display: inline-flex;
+  align-items: center;
+  color: var(--color-text-muted);
+  font-size: 0.9rem;
+  cursor: pointer;
 }
 </style>

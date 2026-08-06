@@ -52,6 +52,11 @@ function backToSetup() {
       <h2 class="word-card__word">{{ state.round.word }}</h2>
     </AppCard>
 
+    <AppCard tone="info" class="hint-card">
+      <p class="hint-card__eyebrow">Hinweis für den Impostor</p>
+      <p class="hint-card__text">{{ state.round.hint }}</p>
+    </AppCard>
+
     <div class="actions">
       <AppButton @click="startAnotherRound">Neue Runde</AppButton>
       <AppButton variant="secondary" @click="backToSetup">Zurück zum Setup</AppButton>
@@ -130,10 +135,29 @@ function backToSetup() {
   color: var(--color-text);
 }
 
+.hint-card {
+  text-align: center;
+  animation: slide-up-fade var(--duration-base) var(--ease-standard) 400ms both;
+}
+
+.hint-card__eyebrow {
+  margin: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.85rem;
+  color: var(--color-blue-light);
+}
+
+.hint-card__text {
+  margin: var(--space-1) 0 0;
+  font-style: italic;
+  color: var(--color-text);
+}
+
 .actions {
   display: flex;
   flex-direction: column;
   gap: var(--space-3);
-  animation: slide-up-fade var(--duration-base) var(--ease-standard) 480ms both;
+  animation: slide-up-fade var(--duration-base) var(--ease-standard) 520ms both;
 }
 </style>
