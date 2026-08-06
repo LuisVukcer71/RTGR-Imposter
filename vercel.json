@@ -5,14 +5,12 @@
   "outputDirectory": "dist",
   "functions": {
     "api/[...path].ts": {
-      "runtime": "@vercel/node@5",
       "maxDuration": 15,
       "memory": 512
     }
   },
   "rewrites": [
     {
-      "comment": "SPA-Fallback: Deep Links wie /room/K7M4PX liefern die App-Shell, /api bleibt bei den Functions.",
       "source": "/((?!api/).*)",
       "destination": "/index.html"
     }

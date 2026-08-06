@@ -7,11 +7,12 @@ import { handleApiRequest } from '../server/router'
  * Alle `/api/*`-Anfragen laufen hier hinein und werden an denselben Router
  * übergeben, den auch der Vite-Dev-Server nutzt – es gibt keinen zweiten
  * Codepfad, der in Produktion abweichen könnte.
+ *
+ * Die Node-Runtime parst JSON-Bodies bereits vor dem Handler; `readBody()`
+ * erkennt das und liest nur dann selbst vom Stream, wenn nötig.
  */
 export const config = {
   runtime: 'nodejs',
-  // Der Body wird selbst gelesen; so gilt dieselbe Größenprüfung wie lokal.
-  api: { bodyParser: false },
 }
 
 export default async function handler(
