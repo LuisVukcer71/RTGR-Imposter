@@ -1,0 +1,141 @@
+/**
+ * Design-Tokens – abgeleitet aus Variante C der Referenz
+ * („dunkel mit kräftigen Akzentfarben“).
+ *
+ * Farbwerte wurden aus der Referenzgrafik gemessen: fast schwarzer, leicht
+ * bläulicher Grund, Teal/Türkis als Impostor-Akzent, Orange für Wer bin ich.
+ */
+
+:root {
+  color-scheme: dark;
+
+  /* --- Flächen ------------------------------------------------------ */
+  --c-bg: #0a0e15;
+  --c-bg-deep: #05080d;
+  --c-surface: #10161d;
+  --c-surface-2: #161d26;
+  --c-surface-3: #1d2530;
+  --c-line: #232c38;
+  --c-line-strong: #33404f;
+
+  /* --- Text --------------------------------------------------------- */
+  --c-text: #f7f8fa;
+  --c-text-muted: #99a4b4;
+  --c-text-dim: #64707f;
+
+  /* --- Impostor (Teal/Türkis) --------------------------------------- */
+  --c-impostor: #2acfb9;
+  --c-impostor-strong: #11b79e;
+  --c-impostor-deep: #0a8a7b;
+  --c-impostor-dark: #012325;
+  --c-impostor-glow: rgb(42 207 185 / 35%);
+
+  /* --- Wer bin ich (Orange) ----------------------------------------- */
+  --c-whoami: #f28c1d;
+  --c-whoami-strong: #eb811b;
+  --c-whoami-deep: #b8560f;
+  --c-whoami-dark: #3f1404;
+  --c-whoami-glow: rgb(242 140 29 / 32%);
+
+  /* --- Signalfarben -------------------------------------------------- */
+  --c-danger: #ff3b30;
+  --c-danger-deep: #7a1109;
+  --c-danger-glow: rgb(255 59 48 / 40%);
+  --c-success: #2acfb9;
+  --c-warning: #f5c451;
+
+  /* --- Verläufe ------------------------------------------------------ */
+  --g-impostor: linear-gradient(160deg, #0f9f8d 0%, #076e64 38%, #032c2e 78%, #01191c 100%);
+  --g-whoami: linear-gradient(160deg, #f6971f 0%, #d96b12 38%, #6b2708 78%, #3a1204 100%);
+  --g-danger: linear-gradient(160deg, #47100c 0%, #240707 60%, #120303 100%);
+  --g-page: radial-gradient(120% 80% at 50% -10%, #131c28 0%, #0a0e15 55%, #070a10 100%);
+
+  /* --- Radien -------------------------------------------------------- */
+  --r-sm: 10px;
+  --r-md: 14px;
+  --r-lg: 20px;
+  --r-xl: 26px;
+  --r-pill: 999px;
+
+  /* --- Abstände ------------------------------------------------------ */
+  --s-1: 4px;
+  --s-2: 8px;
+  --s-3: 12px;
+  --s-4: 16px;
+  --s-5: 20px;
+  --s-6: 24px;
+  --s-7: 32px;
+  --s-8: 40px;
+  --s-9: 56px;
+
+  /* --- Typografie ---------------------------------------------------- */
+  --font-sans:
+    'Inter var', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue',
+    Arial, sans-serif;
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-md: 1rem;
+  --fs-lg: 1.125rem;
+  --fs-xl: 1.375rem;
+  --fs-2xl: 1.75rem;
+  --fs-3xl: 2.25rem;
+  --fs-4xl: 3rem;
+
+  /* --- Schatten & Tiefe ---------------------------------------------- */
+  --sh-card: 0 18px 40px rgb(0 0 0 / 45%);
+  --sh-raised: 0 8px 20px rgb(0 0 0 / 35%);
+  --sh-inset: inset 0 1px 0 rgb(255 255 255 / 6%);
+
+  /* --- Bewegung ------------------------------------------------------ */
+  --e-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --e-inout: cubic-bezier(0.65, 0, 0.35, 1);
+  --e-spring: cubic-bezier(0.34, 1.56, 0.64, 1);
+  --t-fast: 140ms;
+  --t-base: 220ms;
+  --t-slow: 380ms;
+
+  /* --- Layout -------------------------------------------------------- */
+  --w-content: 460px;
+  --w-wide: 1180px;
+  --touch: 44px;
+
+  /* --- Safe Areas ---------------------------------------------------- */
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+  --safe-left: env(safe-area-inset-left, 0px);
+  --safe-right: env(safe-area-inset-right, 0px);
+}
+
+/**
+ * Kontextfarbe: Views setzen `data-accent="impostor" | "whoami"`, alle
+ * Komponenten darin greifen auf --c-accent zu, statt die Modi hart zu kennen.
+ */
+[data-accent='impostor'] {
+  --c-accent: var(--c-impostor);
+  --c-accent-strong: var(--c-impostor-strong);
+  --c-accent-deep: var(--c-impostor-deep);
+  --c-accent-glow: var(--c-impostor-glow);
+}
+
+[data-accent='whoami'] {
+  --c-accent: var(--c-whoami);
+  --c-accent-strong: var(--c-whoami-strong);
+  --c-accent-deep: var(--c-whoami-deep);
+  --c-accent-glow: var(--c-whoami-glow);
+}
+
+:root,
+[data-accent='neutral'] {
+  --c-accent: var(--c-impostor);
+  --c-accent-strong: var(--c-impostor-strong);
+  --c-accent-deep: var(--c-impostor-deep);
+  --c-accent-glow: var(--c-impostor-glow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  :root {
+    --t-fast: 1ms;
+    --t-base: 1ms;
+    --t-slow: 1ms;
+  }
+}
