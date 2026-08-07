@@ -67,10 +67,24 @@ als Node-ESM. Daraus folgen drei Regeln, die im gesamten Graphen aus `api/`,
 Erzwungen wird das nicht durch Disziplin, sondern durch
 `tsconfig.server.json` mit `moduleResolution: "nodenext"`: ein vergessener
 Specifier ist dort ein Typfehler (TS2835) und fällt beim `npm run type-check`
-auf, nicht erst im Deployment. Aus demselben Grund trägt der JSON-Import der
-Seed-Daten das Attribut `with { type: 'json' }` – Node-ESM verlangt es, und der
-Import bleibt so statisch analysierbar, sodass Vercels File-Tracing die Datei
-mit in die Function packt.
+auf, nicht erst im Deployment.
+
+### Keine JSON-Importe im Servergraph
+
+Aus demselben Grund liegen die Seed-Daten als TypeScript-Modul
+(`src/data/impostorSeedPool.ts`) und nicht als JSON-Import vor. Vercel
+kompiliert die Serverdateien in einen Output-Baum und emittiert dabei **keine
+Nicht-TS-Dateien**; das File-Tracing findet eine importierte `.json` dort nicht
+mehr, und die Function stirbt beim Modul-Laden mit
+`FUNCTION_INVOCATION_FAILED`. Ein Import-Attribut hilft dagegen nicht – das
+Problem ist nicht die Syntax, sondern die fehlende Datei.
+
+`impostor-seed-pool.json` bleibt die redaktionelle Quelle und wird von
+`npm run seeds:generate` in das Modul überführt. `src/data/seedPool.test.ts`
+vergleicht beide und schlägt fehl, sobald sie auseinanderlaufen.
+
+Nachprüfen lässt sich das ohne Deployment: `@vercel/nft` über den kompilierten
+Entrypoint laufen lassen und schauen, ob eine Datei im Trace fehlt.
 
 ### Speicherabstraktion mit zwei Adaptern
 

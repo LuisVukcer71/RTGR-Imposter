@@ -163,8 +163,19 @@ Der Import ist idempotent – ein zweiter Lauf ändert nichts. Duplikate werden 
 Seeds sind für diese Entwicklungsfassung `enabled = true`, tragen aber
 `review_status = needs_human_review`, damit sie im Adminbereich sichtbar bleiben.
 
-Dieselbe Datei ist im Browser-Bundle enthalten und dient als Offline-Fallback:
+Derselbe Bestand steckt im Browser-Bundle und dient als Offline-Fallback:
 **Impostor ist ohne Internet und ohne Datenbank vollständig spielbar.**
+
+Geladen wird zur Laufzeit allerdings nicht die JSON-Datei, sondern das daraus
+erzeugte Modul [`src/data/impostorSeedPool.ts`](src/data/impostorSeedPool.ts).
+Vercel emittiert beim Kompilieren der Serverdateien keine JSON-Dateien, ein
+Laufzeit-Import wäre dort nicht auflösbar. Nach einer Änderung an der JSON also:
+
+```sh
+npm run seeds:generate
+```
+
+Wird das vergessen, schlägt `src/data/seedPool.test.ts` fehl.
 
 Der Admin-Import (CSV oder JSON) legt Einträge dagegen immer **deaktiviert** und
 als `needs_human_review` an – importierte Wörter erscheinen nie ungeprüft im Spiel.

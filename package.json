@@ -15,7 +15,8 @@
     "db:status": "tsx scripts/migrate.ts --status",
     "db:rollback": "tsx scripts/migrate.ts --down",
     "db:seed": "tsx scripts/seed.ts",
-    "admin:hash": "tsx scripts/hash-password.ts"
+    "admin:hash": "tsx scripts/hash-password.ts",
+    "seeds:generate": "tsx scripts/generate-seeds.ts"
   },
   "dependencies": {
     "pg": "^8.22.0",

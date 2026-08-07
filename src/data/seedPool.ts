@@ -1,34 +1,17 @@
-import type { CategoryName, ReviewStatus } from '../shared/config.js'
 import type { ImpostorTerm } from '../shared/types.js'
-// Das Import-Attribut ist in Node-ESM Pflicht. Es hält den Import zugleich
-// statisch analysierbar, sodass Vercels File-Tracing die JSON-Datei mit in die
-// Function packt – anders als ein Laden über fs zur Laufzeit.
-import raw from './impostor-seed-pool.json' with { type: 'json' }
+import { IMPOSTOR_SEED_POOL } from './impostorSeedPool.js'
 
 /**
  * Der verbindliche Startbestand: 350 kuratierte Begriffe, exakt 50 pro Kategorie.
  *
- * Die Datei wird an zwei Stellen gebraucht:
+ * Gebraucht an drei Stellen:
  *  - vom Seed-Skript für den Import in PostgreSQL,
- *  - vom Client als Offline-Fallback, damit Impostor ohne Internet spielbar ist.
+ *  - vom Client als Offline-Fallback, damit Impostor ohne Internet spielbar ist,
+ *  - vom In-Memory-Speicher für lokale Entwicklung und Tests.
+ *
+ * Die Daten kommen aus einem TypeScript-Modul statt aus einem JSON-Import.
+ * `impostor-seed-pool.json` bleibt die redaktionelle Quelle, wird zur Laufzeit
+ * aber von niemandem geladen – `src/data/impostorSeedPool.ts` wird daraus
+ * erzeugt (`npm run seeds:generate`), und ein Test wacht über die Deckung.
  */
-
-interface RawSeed {
-  id: string
-  displayTerm: string
-  canonicalTerm: string
-  hintTerm: string
-  category: string
-  enabled: boolean
-  reviewStatus: string
-}
-
-export const seedTerms: ImpostorTerm[] = (raw as RawSeed[]).map((entry) => ({
-  id: entry.id,
-  displayTerm: entry.displayTerm,
-  canonicalTerm: entry.canonicalTerm,
-  hintTerm: entry.hintTerm,
-  category: entry.category as CategoryName,
-  enabled: entry.enabled,
-  reviewStatus: entry.reviewStatus as ReviewStatus,
-}))
+export const seedTerms: ImpostorTerm[] = IMPOSTOR_SEED_POOL
