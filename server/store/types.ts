@@ -1,5 +1,5 @@
-import type { RoomPhase } from '@shared/types'
-import type { ReviewStatus, SuggestionStatus } from '@shared/config'
+import type { RoomPhase } from '../../src/shared/types.js'
+import type { ReviewStatus, SuggestionStatus } from '../../src/shared/config.js'
 
 /**
  * Speicherabstraktion.

@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import { handleApiRequest } from '../server/router'
+import { handleApiRequest } from '../server/router.js'
 
 /**
  * Einziger Einstiegspunkt der Vercel-Serverless-Funktionen.

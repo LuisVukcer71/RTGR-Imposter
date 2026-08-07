@@ -1,5 +1,5 @@
 import { randomUUID } from 'node:crypto'
-import { seedTerms } from '../../src/data/seedPool'
+import { seedTerms } from '../../src/data/seedPool.js'
 import type {
   AdminStore,
   AnalyticsEventInput,
@@ -17,7 +17,7 @@ import type {
   TermInput,
   TermRecord,
   TermStore,
-} from './types'
+} from './types.js'
 
 /**
  * Flüchtiger Speicher für lokale Entwicklung und Tests.

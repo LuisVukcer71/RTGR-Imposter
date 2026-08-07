@@ -1,5 +1,5 @@
-import type { AnalyticsSummary } from '@shared/types'
-import { getStore } from '../store'
+import type { AnalyticsSummary } from '../../src/shared/types.js'
+import { getStore } from '../store/index.js'
 
 /**
  * Aggregiert die Rohereignisse zu den Kennzahlen des Dashboards.

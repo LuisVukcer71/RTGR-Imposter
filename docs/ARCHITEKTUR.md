@@ -50,6 +50,28 @@ Fassungen auseinanderlaufen.
 
 Es gibt keinen zweiten Codepfad, der in Produktion abweichen könnte.
 
+### Importe im Servergraph: explizite `.js`-Endungen
+
+Vercel **bündelt die Function nicht**, sondern transpiliert jede TypeScript-Datei
+einzeln und lässt die Import-Specifier unverändert. Ausgeführt wird das Ergebnis
+als Node-ESM. Daraus folgen drei Regeln, die im gesamten Graphen aus `api/`,
+`server/` und dem davon genutzten `src/shared/` gelten:
+
+- Relative Importe brauchen eine explizite `.js`-Endung, auch wenn die Quelle
+  eine `.ts`-Datei ist (`./errors` → `./errors.js`).
+- Verzeichnis-Importe gibt es nicht; `../store` muss `../store/index.js` heißen.
+- TypeScript-only-Aliase wie `@shared/*` existieren zur Laufzeit nicht und sind
+  im Servergraph durch relative Pfade ersetzt. Im Frontend bleibt der Alias, weil
+  Vite ihn auflöst.
+
+Erzwungen wird das nicht durch Disziplin, sondern durch
+`tsconfig.server.json` mit `moduleResolution: "nodenext"`: ein vergessener
+Specifier ist dort ein Typfehler (TS2835) und fällt beim `npm run type-check`
+auf, nicht erst im Deployment. Aus demselben Grund trägt der JSON-Import der
+Seed-Daten das Attribut `with { type: 'json' }` – Node-ESM verlangt es, und der
+Import bleibt so statisch analysierbar, sodass Vercels File-Tracing die Datei
+mit in die Function packt.
+
 ### Speicherabstraktion mit zwei Adaptern
 
 `server/store/types.ts` beschreibt die Persistenz, `postgres.ts` und `memory.ts`

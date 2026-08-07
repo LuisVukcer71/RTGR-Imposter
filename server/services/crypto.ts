@@ -1,6 +1,6 @@
 import { createHash, randomBytes, scrypt as scryptCb, timingSafeEqual } from 'node:crypto'
 import { promisify } from 'node:util'
-import { env } from '../env'
+import { env } from '../env.js'
 
 const scrypt = promisify(scryptCb) as (
   password: string | Buffer,

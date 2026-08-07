@@ -1,5 +1,5 @@
 import pg from 'pg'
-import { env, requireDatabaseUrl } from '../env'
+import { env, requireDatabaseUrl } from '../env.js'
 import type {
   AdminStore,
   AnalyticsEventInput,
@@ -17,7 +17,7 @@ import type {
   TermInput,
   TermRecord,
   TermStore,
-} from './types'
+} from './types.js'
 
 const { Pool } = pg
 type PoolClient = pg.PoolClient

@@ -1,7 +1,7 @@
-import { assertProductionReady, env } from '../env'
-import { createMemoryStore } from './memory'
-import { createPostgresStore } from './postgres'
-import type { Store } from './types'
+import { assertProductionReady, env } from '../env.js'
+import { createMemoryStore } from './memory.js'
+import { createPostgresStore } from './postgres.js'
+import type { Store } from './types.js'
 
 let instance: Store | null = null
 
@@ -27,4 +27,4 @@ export function resetStore(next?: Store): void {
   instance = next ?? null
 }
 
-export type { Store } from './types'
+export type { Store } from './types.js'

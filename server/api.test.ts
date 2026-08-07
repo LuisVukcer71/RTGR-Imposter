@@ -1,10 +1,10 @@
 import { createServer, type Server } from 'node:http'
 import { afterAll, beforeAll, beforeEach, describe, expect, it } from 'vitest'
-import { SUGGESTIONS } from '@shared/config'
-import { hashPassword } from './services/crypto'
-import { handleApiRequest } from './router'
-import { createMemoryStore } from './store/memory'
-import { resetStore } from './store'
+import { SUGGESTIONS } from '../src/shared/config.js'
+import { hashPassword } from './services/crypto.js'
+import { handleApiRequest } from './router.js'
+import { createMemoryStore } from './store/memory.js'
+import { resetStore } from './store/index.js'
 
 /**
  * Tests auf HTTP-Ebene: sie sprechen denselben Router an, den auch Vercel

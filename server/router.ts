@@ -1,5 +1,5 @@
 import type { IncomingMessage, ServerResponse } from 'node:http'
-import { ApiFailure, fail, toResponse } from './errors'
+import { ApiFailure, fail, toResponse } from './errors.js'
 import {
   clientIp,
   MalformedJson,
@@ -11,8 +11,8 @@ import {
   type ApiRequest,
   type ApiResponse,
   type Handler,
-} from './http'
-import { routes } from './routes'
+} from './http.js'
+import { routes } from './routes/index.js'
 
 interface CompiledRoute {
   method: string

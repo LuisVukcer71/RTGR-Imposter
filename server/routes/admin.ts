@@ -1,13 +1,13 @@
-import { CATEGORIES, REVIEW_STATUSES, SUGGESTION_STATUSES } from '@shared/config'
-import { isCategoryName, normalizeTerm } from '@shared/validation'
-import type { ReviewStatus, SuggestionStatus } from '@shared/config'
-import { fail } from '../errors'
-import { json, noContent, type ApiRequest, type Handler } from '../http'
-import * as auth from '../services/adminAuth'
-import { summarize, exportRange } from '../services/analyticsQuery'
-import { runMaintenance } from '../services/maintenance'
-import { getStore } from '../store'
-import type { TermInput } from '../store/types'
+import { CATEGORIES, REVIEW_STATUSES, SUGGESTION_STATUSES } from '../../src/shared/config.js'
+import { isCategoryName, normalizeTerm } from '../../src/shared/validation.js'
+import type { ReviewStatus, SuggestionStatus } from '../../src/shared/config.js'
+import { fail } from '../errors.js'
+import { json, noContent, type ApiRequest, type Handler } from '../http.js'
+import * as auth from '../services/adminAuth.js'
+import { summarize, exportRange } from '../services/analyticsQuery.js'
+import { runMaintenance } from '../services/maintenance.js'
+import { getStore } from '../store/index.js'
+import type { TermInput } from '../store/types.js'
 
 /**
  * Admin-API. Jede Route außer `login` ruft zuerst `requireAdmin` auf – die

@@ -1,11 +1,11 @@
-import { IMPOSTOR } from './config'
+import { IMPOSTOR } from './config.js'
 import type {
   ImpostorAssignment,
   ImpostorConfig,
   ImpostorRole,
   PlayableTerm,
-} from './types'
-import { findDuplicateNames, validatePlayerName } from './validation'
+} from './types.js'
+import { findDuplicateNames, validatePlayerName } from './validation.js'
 
 /** Quelle für Zufall – in Tests durch eine deterministische Funktion ersetzbar. */
 export type RandomFn = () => number

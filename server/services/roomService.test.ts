@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import { WHO_AM_I } from '@shared/config'
-import { createMemoryStore } from '../store/memory'
-import type { RoomStore, Store } from '../store/types'
-import * as rooms from './roomService'
+import { WHO_AM_I } from '../../src/shared/config.js'
+import { createMemoryStore } from '../store/memory.js'
+import type { RoomStore, Store } from '../store/types.js'
+import * as rooms from './roomService.js'
 
 /**
  * Integrationstests der Raumlogik gegen den In-Memory-Adapter.

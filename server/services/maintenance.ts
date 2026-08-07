@@ -1,5 +1,5 @@
-import { getStore } from '../store'
-import { cleanupExpiredRooms } from './roomService'
+import { getStore } from '../store/index.js'
+import { cleanupExpiredRooms } from './roomService.js'
 
 /**
  * Aufräumarbeiten ohne eigenen Cron: sie laufen gedrosselt im Hintergrund

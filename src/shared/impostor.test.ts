@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { IMPOSTOR } from './config'
+import { IMPOSTOR } from './config.js'
 import {
   assignRoles,
   drawTerm,
@@ -10,8 +10,8 @@ import {
   recommendedImpostorCount,
   shuffle,
   validateImpostorConfig,
-} from './impostor'
-import type { ImpostorConfig, PlayableTerm } from './types'
+} from './impostor.js'
+import type { ImpostorConfig, PlayableTerm } from './types.js'
 
 /** Deterministischer Ersatz für Math.random, damit Tests reproduzierbar sind. */
 function sequence(values: number[]): () => number {

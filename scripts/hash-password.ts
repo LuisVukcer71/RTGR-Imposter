@@ -1,5 +1,5 @@
 import { createInterface } from 'node:readline/promises'
-import { hashPassword } from '../server/services/crypto'
+import { hashPassword } from '../server/services/crypto.js'
 
 /**
  * Erzeugt den Wert für `ADMIN_PASSWORD_HASH`.

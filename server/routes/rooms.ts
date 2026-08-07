@@ -1,10 +1,10 @@
-import { WHO_AM_I } from '@shared/config'
-import { isValidRoomCode, normalizeRoomCode } from '@shared/validation'
-import { fail } from '../errors'
-import { json, noContent, type ApiRequest, type Handler } from '../http'
-import { getStore } from '../store'
-import { maybeRunMaintenance } from '../services/maintenance'
-import * as rooms from '../services/roomService'
+import { WHO_AM_I } from '../../src/shared/config.js'
+import { isValidRoomCode, normalizeRoomCode } from '../../src/shared/validation.js'
+import { fail } from '../errors.js'
+import { json, noContent, type ApiRequest, type Handler } from '../http.js'
+import { getStore } from '../store/index.js'
+import { maybeRunMaintenance } from '../services/maintenance.js'
+import * as rooms from '../services/roomService.js'
 
 /**
  * HTTP-Schicht für „Wer bin ich?“. Sie validiert Eingaben und übersetzt sie in

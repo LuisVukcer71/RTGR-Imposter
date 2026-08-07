@@ -1,11 +1,11 @@
 import { randomInt, randomUUID } from 'node:crypto'
-import { WHO_AM_I } from '@shared/config'
-import { circularAssignmentMap, renumberSeats, applyOrder } from '@shared/seating'
-import type { RoomBoardEntry, RoomPlayerView, RoomView } from '@shared/types'
-import { playerNameKey, validatePlayerName, validateWhoAmITerm } from '@shared/validation'
-import { fail } from '../errors'
-import { randomToken, safeEqual, sha256 } from './crypto'
-import type { AssignmentRecord, PlayerRecord, RoomRecord, RoomStore, RoomTx } from '../store/types'
+import { WHO_AM_I } from '../../src/shared/config.js'
+import { circularAssignmentMap, renumberSeats, applyOrder } from '../../src/shared/seating.js'
+import type { RoomBoardEntry, RoomPlayerView, RoomView } from '../../src/shared/types.js'
+import { playerNameKey, validatePlayerName, validateWhoAmITerm } from '../../src/shared/validation.js'
+import { fail } from '../errors.js'
+import { randomToken, safeEqual, sha256 } from './crypto.js'
+import type { AssignmentRecord, PlayerRecord, RoomRecord, RoomStore, RoomTx } from '../store/types.js'
 
 /**
  * Sämtliche Spielregeln von „Wer bin ich?“ – einmalig und speicherunabhängig.

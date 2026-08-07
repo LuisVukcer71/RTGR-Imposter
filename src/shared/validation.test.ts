@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { PLAYER_NAME, WHO_AM_I } from './config'
+import { PLAYER_NAME, WHO_AM_I } from './config.js'
 import {
   findDuplicateNames,
   hasDuplicateNames,
@@ -10,7 +10,7 @@ import {
   validateSuggestion,
   validateWhoAmITerm,
   visibleLength,
-} from './validation'
+} from './validation.js'
 
 describe('Spielernamen', () => {
   it('trimmt außen und zieht innere Leerzeichen zusammen', () => {

@@ -5,7 +5,7 @@ import {
   circularAssignmentMap,
   renumberSeats,
   seatsAreContiguous,
-} from './seating'
+} from './seating.js'
 
 const players = [
   { id: 'p1', seat: 1 },

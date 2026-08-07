@@ -1,5 +1,5 @@
 import pg from 'pg'
-import { seedTerms } from '../src/data/seedPool'
+import { seedTerms } from '../src/data/seedPool.js'
 
 /**
  * Importiert den verbindlichen Startbestand (350 Begriffe, 50 pro Kategorie)

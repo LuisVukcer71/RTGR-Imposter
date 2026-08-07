@@ -1,4 +1,4 @@
-import type { CategoryName, ReviewStatus, SuggestionStatus } from './config'
+import type { CategoryName, ReviewStatus, SuggestionStatus } from './config.js'
 
 /* ------------------------------------------------------------------ *
  * Impostor

@@ -1,4 +1,4 @@
-import type { ApiResponse } from './http'
+import type { ApiResponse } from './http.js'
 
 /**
  * Einheitliche Fehlerform `{ error, message, details? }`. Der Client mappt

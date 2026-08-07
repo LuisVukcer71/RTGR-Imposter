@@ -1,9 +1,9 @@
-import { SUGGESTIONS } from '@shared/config'
-import { validateSuggestion } from '@shared/validation'
-import { fail } from '../errors'
-import { json, type Handler } from '../http'
-import { pseudonymize } from '../services/crypto'
-import { getStore } from '../store'
+import { SUGGESTIONS } from '../../src/shared/config.js'
+import { validateSuggestion } from '../../src/shared/validation.js'
+import { fail } from '../errors.js'
+import { json, type Handler } from '../http.js'
+import { pseudonymize } from '../services/crypto.js'
+import { getStore } from '../store/index.js'
 
 /**
  * Öffentliches Vorschlagsformular.

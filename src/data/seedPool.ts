@@ -1,6 +1,9 @@
-import type { CategoryName, ReviewStatus } from '@shared/config'
-import type { ImpostorTerm } from '@shared/types'
-import raw from './impostor-seed-pool.json'
+import type { CategoryName, ReviewStatus } from '../shared/config.js'
+import type { ImpostorTerm } from '../shared/types.js'
+// Das Import-Attribut ist in Node-ESM Pflicht. Es hält den Import zugleich
+// statisch analysierbar, sodass Vercels File-Tracing die JSON-Datei mit in die
+// Function packt – anders als ein Laden über fs zur Laufzeit.
+import raw from './impostor-seed-pool.json' with { type: 'json' }
 
 /**
  * Der verbindliche Startbestand: 350 kuratierte Begriffe, exakt 50 pro Kategorie.

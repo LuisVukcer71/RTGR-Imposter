@@ -1,7 +1,7 @@
-import { json, type Handler } from '../http'
-import { pseudonymize } from '../services/crypto'
-import { getStore } from '../store'
-import type { AnalyticsEventInput } from '../store/types'
+import { json, type Handler } from '../http.js'
+import { pseudonymize } from '../services/crypto.js'
+import { getStore } from '../store/index.js'
+import type { AnalyticsEventInput } from '../store/types.js'
 
 /**
  * Aufnahme anonymer Ereignisse.

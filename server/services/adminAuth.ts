@@ -1,9 +1,9 @@
-import { ADMIN } from '@shared/config'
-import { env } from '../env'
-import { fail } from '../errors'
-import type { ApiRequest, SetCookie } from '../http'
-import { getStore } from '../store'
-import { randomToken, safeEqual, sha256, verifyPassword } from './crypto'
+import { ADMIN } from '../../src/shared/config.js'
+import { env } from '../env.js'
+import { fail } from '../errors.js'
+import type { ApiRequest, SetCookie } from '../http.js'
+import { getStore } from '../store/index.js'
+import { randomToken, safeEqual, sha256, verifyPassword } from './crypto.js'
 
 /**
  * Adminauthentifizierung.

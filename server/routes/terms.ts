@@ -1,7 +1,7 @@
-import type { PlayableTerm } from '@shared/types'
-import { json, type Handler } from '../http'
-import { getStore } from '../store'
-import { maybeRunMaintenance } from '../services/maintenance'
+import type { PlayableTerm } from '../../src/shared/types.js'
+import { json, type Handler } from '../http.js'
+import { getStore } from '../store/index.js'
+import { maybeRunMaintenance } from '../services/maintenance.js'
 
 /**
  * Aktiver Wortpool für den Impostor-Modus.

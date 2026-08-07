@@ -4,7 +4,7 @@ import {
   SUGGESTIONS,
   WHO_AM_I,
   type CategoryName,
-} from './config'
+} from './config.js'
 
 export type ValidationResult<T> = { ok: true; value: T } | { ok: false; reason: string }
 

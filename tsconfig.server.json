@@ -3,15 +3,21 @@
   "extends": "@tsconfig/node24/tsconfig.json",
   "include": ["server/**/*", "api/**/*", "scripts/**/*", "src/shared/**/*"],
   "compilerOptions": {
-    "module": "preserve",
-    "moduleResolution": "bundler",
+    // Bewusst `nodenext` statt `bundler`: Vercel transpiliert diese Dateien
+    // einzeln und führt sie als Node-ESM aus, ohne Bundler dazwischen. Damit
+    // erzwingt der Typecheck, was die Laufzeit ohnehin verlangt – explizite
+    // `.js`-Endungen und keine Verzeichnis-Importe. Ein vergessener Specifier
+    // fällt so beim `npm run type-check` auf und nicht erst im Deployment.
+    "module": "nodenext",
+    "moduleResolution": "nodenext",
+
+    // Kein `paths`-Mapping: `@shared/*` existiert zur Laufzeit nicht und darf
+    // deshalb im Servergraph gar nicht erst wieder auftauchen.
+
     "types": ["node"],
     "noEmit": true,
     "noUncheckedIndexedAccess": true,
     "resolveJsonModule": true,
-    "paths": {
-      "@shared/*": ["./src/shared/*"]
-    },
     "tsBuildInfoFile": "./node_modules/.tmp/tsconfig.server.tsbuildinfo"
   }
 }
