@@ -39,25 +39,34 @@ export const useRoomStore = defineStore('room', () => {
   function attach(next: Membership) {
     detach()
     membership.value = next
+    fatalError.value = null
     rememberMembership(next)
 
-    sync = createPollingRoomSync()
-    sync.onUpdate((incoming) => {
+    const attachedSync = createPollingRoomSync()
+    sync = attachedSync
+    attachedSync.onUpdate((incoming) => {
+      if (sync !== attachedSync) return
       // Nur neuere Stände übernehmen: eine langsame Antwort darf einen
       // frischeren Zustand nicht überschreiben.
       if (!view.value || incoming.version >= view.value.version) view.value = incoming
       fatalError.value = null
     })
-    sync.onConnectionChange((value) => {
+    attachedSync.onConnectionChange((value) => {
+      if (sync !== attachedSync) return
       connected.value = value
     })
-    sync.onError((error) => {
+    attachedSync.onError((error) => {
+      if (sync !== attachedSync) return
+      // onError wird nur für terminale Fehler ausgelöst; der Poll hat sich zu
+      // diesem Zeitpunkt dauerhaft gestoppt und darf nicht als aktiv gelten.
+      attachedSync.stop()
+      sync = null
       fatalError.value = error instanceof HttpError ? error.code : 'unknown'
       if (error instanceof HttpError && [403, 404, 410].includes(error.status)) {
         forgetMembership(next.code)
       }
     })
-    sync.start(next)
+    attachedSync.start(next)
   }
 
   function detach() {
@@ -68,6 +77,12 @@ export const useRoomStore = defineStore('room', () => {
   }
 
   function resume(code: string): boolean {
+    // Direkt nach create/join läuft der Sync bereits. Die Raumansicht wird
+    // jedoch meist gemountet, bevor der erste Read eine View geliefert hat.
+    // In diesem Fall weder vom best-effort Storage abhängig werden noch den
+    // gerade gestarteten Poll unnötig abbrechen und neu beginnen.
+    if (membership.value?.code === code && sync) return true
+
     const existing = getMembership(code)
     if (!existing) return false
     attach(existing)

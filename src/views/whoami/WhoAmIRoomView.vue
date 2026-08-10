@@ -49,7 +49,6 @@ const startBlockedReason = computed(() => {
 })
 
 onMounted(() => {
-  if (room.membership?.code === code.value && room.view) return
   if (!room.resume(code.value)) {
     // Ohne bekanntes Rejoin-Token gibt es keinen Zugang – Raumcode allein reicht nicht.
     void router.replace({ name: 'whoami-entry', query: { code: code.value } })
